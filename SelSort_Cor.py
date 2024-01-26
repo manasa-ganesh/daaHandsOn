@@ -1,3 +1,5 @@
+#selection sort correctness 
+
 def sel_sort(arr):
     n = len(arr)
     for i in range(n):

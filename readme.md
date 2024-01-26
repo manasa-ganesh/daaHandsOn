@@ -1,3 +1,5 @@
+b. Argue Selection Sort Correctness
+
 Selection sort is a simple and straightforward sorting algorithm, but it may not be the most efficient choice for large datasets. Let's discuss its correctness and some aspects of its performance:
 
 Correctness:
@@ -9,4 +11,3 @@ The correctness of selection sort can be demonstrated by the loop invariant. At 
 The time complexity of selection sort is O(n^2), where n is the number of elements in the array. This is because, for each element in the array, the algorithm has to find the minimum element in the unsorted region, which involves comparing n elements in the worst case.
 
 While selection sort is correct, it is not the most efficient sorting algorithm for large datasets due to its time complexity. Its quadratic time complexity makes it less suitable for sorting large datasets compared to more advanced algorithms like merge sort or quicksort, which have average-case time complexities of O(n log n).
-
