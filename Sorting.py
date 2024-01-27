@@ -1,6 +1,23 @@
 import timeit as time
+import platform as plfrm
+import psutil as sysinfo
 import random as ran
 import matplotlib.pyplot as plt
+# System Information
+def get_cpu():
+    return f"CPU: plfrm.processor()"
+def get_ram():
+    ram = sysinfo.virtual_memory()
+    return f"Total RAM: {ram.total} bytes"
+def get_stor():
+    parts = sysinfo.disk_partitions()
+    stor = []
+    for part in parts:
+        part_info = sysinfo.disk_usage(part.mountpoint)
+        stor.append(f"{part.device} - Total: {part_info.total} bytes, Free: {part_info.free} bytes")
+    return stor
+def get_sys():
+    return f"System: {plfrm.system()} {plfrm.version()}"
 
 # Insertion Sort
 def insertion_sort(array):
@@ -49,8 +66,6 @@ def benchmark(sort_func, array):
 
     return exe_time
 
-
-
 # Benchmark parameters
 sizes = [5, 10, 20, 50, 100, 200, 500, 1000,2000]  # Adjust as needed
 
@@ -73,11 +88,26 @@ for size in sizes:
     bub_time = benchmark('bubble_sort', array)
     results['Bubble Sort'].append(bub_time)
 
+# System Information
+print("System Information:")
+print(get_cpu())    #output: CPU: Windows 10.0.22621    
+print(get_ram())    #output: Total RAM: 16805036032 bytes
+print(get_sys())    #output: System: Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+
+# Storage Information
+
+print("Storage Information")
+print('\n'.join(get_stor()))
+
+"""output:C:\ - Total: 368129863680 bytes, Free: 243057664000 bytes
+D:\ - Total: 318787022848 bytes, Free: 257257058304 bytes
+E:\ - Total: 335544315904 bytes, Free: 316200505344 bytes
+G:\ - Total: 16106127360 bytes, Free: 661610496 bytes """
+
 # Plotting the results
 plt.plot(sizes, results['Insertion Sort'], label='Insertion Sort', color='orange')
 plt.plot(sizes, results['Selection Sort'], label='Selection Sort', color='blue')
 plt.plot(sizes, results['Bubble Sort'], label='Bubble Sort', color='green')
-
 
 plt.xlabel('Array Size')
 plt.ylabel('Execution Time (sec)')
